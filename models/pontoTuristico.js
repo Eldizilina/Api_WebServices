@@ -32,7 +32,28 @@ const PontoTuristico = sequelize.define('PontoTuristico', {
   },
 }, {
   tableName: 'pontos_turisticos',
-  timestamps: true
+  timestamps: false
 });
+
+// pontoTuristicoController.js
+const { Op } = require("sequelize");
+
+exports.getByDistrito = async (req, res) => {
+  const { distrito } = req.params;
+  try {
+    const pontos = await PontoTuristico.findAll({
+      where: {
+        distrito: {
+          [Op.iLike]: `%${distrito}%`
+        }
+      }
+    });
+
+    res.json(pontos);
+  } catch (error) {
+    res.status(500).json({ erro: "Erro ao buscar por distrito" });
+  }
+};
+
 
 module.exports = PontoTuristico;

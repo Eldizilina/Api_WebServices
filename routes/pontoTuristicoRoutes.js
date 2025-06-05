@@ -3,6 +3,7 @@ const router = express.Router();
 const controller = require('../controllers/pontoTuristicoController');
 
 
+
 router.get('/distrito/:distrito', controller.getByDistrito);
 //router.get('/:id/pontos-proximos', controller.getPontosProximos);
 
